@@ -8,8 +8,8 @@ router.get("/all",(req,res)=>{
     res.send(recettes)
 });
 // la recuperation des nomes de recettes;
-router.get("/names",(req,res)=>{
-    const recettes=recette.find({},"name")
+router.get("/names",async(req,res)=>{
+    const recettes=await recette.find({},"name")
     if(recettes){
         res.send(recettes)
     }
@@ -30,8 +30,8 @@ router.post("/add",(req,res)=>{
 })
 
 //la modification d'une recette;
-router.put("/update/:name",(req,res)=>{
-    const updatedRecette=req.body;
+router.put("/update/:name",async(req,res)=>{
+    const updatedRecette=await req.body;
     recette.updateOne({name:req.params.name},updatedRecette).then(()=>{
         res.send("recette updated successfully")
     }).catch(()=>{
