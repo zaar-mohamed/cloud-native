@@ -1,8 +1,8 @@
 const mongose=require("mongoose");
-const restaurant=new mongose.Schema({
-    id:1,
-    name:"el pescador",
-    city:"malaga",
+const restaurantSchema=new mongose.Schema({
+    id:Number,
+    name:String,
+    city:String
     
 });
-module.exports=mongose.model("restaurant",restaurant);
+module.exports=mongose.model("restaurant",restaurantSchema);

@@ -5,4 +5,4 @@ router.get("restaurants",(req,res)=>{
     const restaurants=restaurant.find({});
     res.send(restaurants)
 })
-module.exports = router;
+module.exports = router;no

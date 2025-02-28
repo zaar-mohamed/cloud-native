@@ -1,7 +1,7 @@
 const mongose=require("mongoose");
-const recette=new mongose.Schema({
-    name:"recette de pizza",
-    ingredients:["tomate","mozzarella"],
-    tempsPreparation:30
+const recetteSchema=new mongose.Schema({
+    name:String,
+    ingredients:String,
+    tempsPreparation:Number,
 });
-module.exports=mongose.model("recette",recette);
+module.exports=mongose.model("recette",recetteSchema);
