@@ -59,8 +59,9 @@ router.get("/recettes/:restaurantname",(req,res)=>{
 router.post("/add",(req,res)=>{
     const newrestaurant=new restaurants(req.body);
     try{newrestaurant.save();
-    res.send("new restaurant added successfully");
         res.json(newrestaurant);
+    res.send("new restaurant added successfully");
+       
 }
 catch(err){
     console.error("Error adding restaurant:",err);
@@ -92,13 +93,13 @@ router.delete("/delete/:name",async(req,res)=>{
 });
 
 //Retourne les restaurants ouvert entre les deux paramètres annee1 et annee2
-router.get("/list/annee1/annee2",async(req,res)=>{
-    const annee1=req.params.annee1;
-    const annee2=req.params.annee2;
+router.get("/list/:annee1/:annee2",async(req,res)=>{
+    const annee1=parseInt(req.params.annee1);
+    const annee2=parseInt(req.params.annee2);
     const restaurantsDates=await restaurants.find({$and:[{ouverture:{$gt:annee1}},{ouverture:{$lt:annee2}}]})
 
 if(restaurantsDates){
-    res.send(restaurantsDates)
+    res.json(restaurantsDates)
 }
 else{
     res.status(404).send("No restaurants found between those dates")
