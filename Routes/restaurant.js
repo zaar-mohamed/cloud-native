@@ -110,10 +110,10 @@ else{
 
 router.get("/listcategorie/:categorie",async(req,res)=>{
     const categorie=decodeURIComponent(req.params.categorie);
-    const restaurantsCategorie=await restaurants.find({categorie:categorie})
+    const restaurantsCategorie=await restaurants.find({category:categorie})
 
 if(restaurantsCategorie){
-    res.send(restaurantsCategorie)
+    res.json(restaurantsCategorie)
 }
 else{
     res.status(404).send("No restaurants found in this category")
