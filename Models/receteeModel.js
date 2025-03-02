@@ -1,8 +1,8 @@
 const mongose=require("mongoose");
 const recetteSchema=new mongose.Schema({
-    name:String,
-    ingredients:String,
-    tempsPreparation:Number,
-    chef:{type:mongose.Schema.Types.ObjectId,ref:chef,required:true}
+    name:{type:String},
+    ingredients:[{type:String}],
+    tempsPreparation:{type:Number},
+    chef:{type:mongose.Schema.Types.ObjectId,ref:"chef"}
 });
 module.exports=mongose.model("recette",recetteSchema);

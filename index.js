@@ -16,8 +16,8 @@ mongose.connect(`${process.env.URL_MONGOOSE}/${process.env.DATABASE}`)
     .catch(err=>console.error(err));
 
 app.use("/chefs",require("./Routes/chef"));
-app.use("/recette",require("./Routes/recette"));
-app.use("/restaurant",require("./Routes/restaurant"));
+app.use("/recettes",require("./Routes/recette"));
+app.use("/restaurants",require("./Routes/restaurant"));
 
 app.listen(process.env.PORT||3000,()=>{
     console.log(`listening to port ${process.env.PORT}`);

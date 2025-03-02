@@ -1,8 +1,8 @@
 const mongose=require("mongoose");
-const chefScheme=new mongose.Schema({
-    name : {String,required:true},
-    foodSpecialite:[{String,required:true}],
-    restaurant:{type:mongose.Schema.Types.ObjectId,ref:"restaurant",required:true},
+const chefSchema=new mongose.Schema({
+    name:{type:String},
+    foodSpecialite:[{type:String}],
+    restaurant:{type:mongose.Schema.Types.ObjectId,ref:"restaurant"},
 
 });
-module.exports=mongose.model("chef",chefScheme);
+module.exports=mongose.model("chef",chefSchema);
