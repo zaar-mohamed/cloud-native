@@ -31,8 +31,10 @@ router.get("/names",async(req,res)=>{
 router.post("/add",(req,res)=>{
     const newRecette=new recette(req.body);
     try{
-        res.send("recette added successfully");
+        newRecette.save();
         res.json(newRecette);
+        res.send("recette added successfully");
+      
     }
     catch(err){
         res.status(400).send("Erreur lors de l'ajout de la recette");
