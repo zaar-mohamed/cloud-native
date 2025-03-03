@@ -1,10 +1,31 @@
 const express=require("express");
 const router=express.Router();
 const chefs = require('../Models/chefmodel');
+const jwt=require("jsonwebtoken")
+
+
+// Login using jwt
+router.post("/login",async(req,res)=>{
+    const {name:username}=req.body;
+    
+   try {const chef=await chefs.findOne({name:username});
+    if(!chef){
+        res.status(404).send("chef non trouvée")
+    }
+    
+    
+        const token=jwt.sign({username:chef.name},'secretkey');
+        res.json({token:token})
+    
+}
+    catch(error){
+        console.error("error :",error);
+    }
+});
+
+
 
 // la recuperation de tous les chefs
-
-// Retrieve all chefs
 router.get("/all", async (req, res) => {
     try {
         const allChefs = await chefs.find({}); 
@@ -18,7 +39,6 @@ router.get("/all", async (req, res) => {
         res.status(500).send("Server error");
     }
 });
-
 
 
 // la recuperation des nomes des chefs
