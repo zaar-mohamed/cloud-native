@@ -34,11 +34,13 @@ router.get("/all", async (req, res) => {
         } else {
             res.status(404).send("Aucun chef trouve");
         }
-    } catch (error) {
+    }
+    catch (error) {
         console.error("Error fetching chefs:", error);
         res.status(500).send("Server error");
     }
 });
+
 
 
 // la recuperation des nomes des chefs
@@ -57,7 +59,7 @@ router.post("/add",(req,res)=>{
     const newchef=new chefs(req.body);
     try{newchef.save();
     res.json(newchef);
-        res.send("new chef added successfully")
+    res.send("new chef added successfully")
 }
     catch(err){
         res.status(400).json({"error ":err})
