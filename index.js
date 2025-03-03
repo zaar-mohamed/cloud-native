@@ -9,15 +9,21 @@ const host =process.env.HOST;
 var cors=require("cors");
 app.use(cors());
 
+
+
 // Connect to MongoDB
 const mongose=require("mongoose");
 mongose.connect(`${process.env.URL_MONGOOSE}/${process.env.DATABASE}`)
     .then(()=>console.log('Connected to expressDB'))
     .catch(err=>console.error(err));
 
+const {verifytoken}=require("./Middleware/auth")
+
 app.use("/chefs",require("./Routes/chef"));
-app.use("/recettes",require("./Routes/recette"));
+app.use("/recettes",verifytoken,require("./Routes/recette"));
 app.use("/restaurants",require("./Routes/restaurant"));
+
+app.use("/api/auth",require("./Routes/user"));
 
 app.listen(process.env.PORT||3000,()=>{
     console.log(`listening to port ${process.env.PORT}`);
