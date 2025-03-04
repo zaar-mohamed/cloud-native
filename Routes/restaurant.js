@@ -16,14 +16,20 @@ router.get("/all", async (req, res) => {
     }
 });
 
-// la recuperations des chefs d'un restaurants
-router.get("/chefs/:restaurantname",(req,res)=>{
-    // const restaurant=req.params.restaurantname;
-    const chefs=restaurants.aggregate([{
+//Retourne toutes les informations sur les chefs d'un restaurant passe en paramètre.
+router.get("/chefs/:restaurantname",async(req,res)=>{
+    const restaurantname = await decodeURIComponent(req.params.restaurantname);
+    const restaurant=await restaurants.findOne({name:restaurantname});
+    if(!restaurant){
+        return res.status(404).send("restaurant not found")
+    }
+    const chefs=await restaurants.aggregate([{
+        $match:{name:restaurantname}
+    },{
         $lookup:{
             from:"chef",
             localField:"_id",
-            foreignfield:"restaurant",
+            foreignField:"restaurant",
             as:"chefs"
         }
     }]);
@@ -37,9 +43,9 @@ router.get("/chefs/:restaurantname",(req,res)=>{
 });
 
 // la recuperation des recette des restaurant
-router.get("/recettes/:restaurantname",(req,res)=>{
-    // const restaurant=req.params.restaurantname;
-    const recettes=restaurants.aggregate([{
+router.get("/recettes/:restaurantname",async(req,res)=>{
+     const restaurantname=await decodeURIComponent(req.params.restaurantname);
+    const recettes=await restaurants.aggregate([{$match:{name:restaurantname}},{
         $lookup:{
             from:"recette",
             localField:"_id",
