@@ -37,7 +37,7 @@ router.post("/register",async(req,res)=>{
         prenom:req.body.prenom,
         email:req.body.email,
         mdp:hashedpassword
-        })
+        });
         if (!req.body.email || !req.body.mdp) {
             return res.status(401).send("email et mot de passe obligatoire");
           }
@@ -49,6 +49,7 @@ router.post("/register",async(req,res)=>{
         await newuser.save();
         res.status(200).send("User added successfully")
     }
-})
+});
+
 
 module.exports=router;
