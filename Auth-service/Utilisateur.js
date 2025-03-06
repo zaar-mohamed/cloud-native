@@ -13,9 +13,9 @@ router.get("/all",(req,res)=>{
         res.status(404).send("users not found")
     }
 });
-router.post("/register",()=>{
-    const hassedpaas=bcrypt.hash(req.body.mdp,10);
-    const user=new users({
+router.post("/register",async(req,res)=>{
+    const hassedpaas=await bcrypt.hash(req.body.mdp,10);
+    const newuser=await new users({
         nom:req.body.nom,
         email:req.body.email,
         login:req.body.login,
@@ -28,7 +28,7 @@ router.post("/register",()=>{
     if(userexisting){
         res.send("user already exists");
     }
-    user.save();
+   await  newuser.save();
     res.send("user added succesfullly")
 });
 router.post("/login",(req,res)=>{

@@ -2,11 +2,12 @@ const express=require("express")
 const app = express();
 app.use(express.json());
 const mongose=require("mongoose");
+const { verifytoken } = require("./middlewre");
 mongose.connect("mongodb://localhost:27017/TPMicroservice")
 .then(console.log("connected to TPMicroservice"))
 .catch(err=>console.log("error : ",err))
 
-app.use("/Recettes",require("./Recette"));
+app.use("/Recettes",/*verifytoken,*/require("./Recette"));
 // app.use("/chefs",require("../Chef/Chef"));
 // app.use("/restaurants",require("../Restaurant/Restaurant"));
 

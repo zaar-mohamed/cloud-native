@@ -6,6 +6,23 @@ mongose.connect("mongodb://localhost:27017/TPMicroservice")
 .then(console.log("connected to TPMicroservice"))
 .catch(err=>console.log("error : ",err))
 
+const jwt = require("jsonwebtoken");
+// function verifytoken(req,res,next){
+//     const token=req.headers.authorization && req.headers.authorization.split(" ")[1];
+//     if(!token){
+//         return res.status(403).send("token is required to authentify")
+//     }
+//     jwt.verify(token,"tokenkey",(err,user)=>{
+//         if(err){
+//             return res.status(403).send("invalid token")
+//         }
+//         req.user=user;
+//         next();
+//     })
+// }
+
+
+
 app.use("/authen",require("./Utilisateur"));
 
 

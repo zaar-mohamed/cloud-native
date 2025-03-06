@@ -1,12 +1,14 @@
 const express=require("express")
 const app = express();
 app.use(express.json());
+const middlware=require("../Chef/middlewre")
 const mongose=require("mongoose");
+const {verifytoken}=require("./middlewre")
 mongose.connect("mongodb://localhost:27017/TPMicroservice")
 .then(console.log("connected to TPMicroservice"))
 .catch(err=>console.log("error : ",err))
 
-app.use("/restaurants",require("./Restaurant"));
+app.use("/restaurants",verifytoken,require("./Restaurant"));
 
 
 
